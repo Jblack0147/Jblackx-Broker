@@ -1,8 +1,9 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Withdraw - Jblackx Life Investment</title>
+  <title>Withdraw - Jblackx Broker</title>
   <link href="style.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
@@ -29,22 +30,29 @@
       <a href="#" onclick="logout()">🚪 Logout</a>
     </div>
   </div>
+
   <div class="container">
     <h2>💸 Withdraw Funds</h2>
     <label for="amount">Amount ($USDT)</label>
-    <input type="number" id="amount" placeholder="e.g. 5000" /><label for="wallet">Withdrawal Wallet</label>
-<input type="text" id="wallet" placeholder="Enter your USDT wallet address" />
+    <input type="number" id="amount" placeholder="e.g. 5000" />
+    
+    <label for="wallet">Withdrawal Wallet</label>
+    <input type="text" id="wallet" placeholder="Enter your USDT wallet address" />
 
-<button onclick="showKYCModal()">Submit Withdrawal</button>
-<button onclick="downloadReceipt()">📄 Download Receipt (PDF)</button>
+    <button onclick="showKYCModal()">Submit Withdrawal</button>
+    <button onclick="downloadReceipt()">📄 Download Receipt (PDF)</button>
+  </div>
 
-  </div>  <!-- KYC Modal -->  <div class="backdrop" id="backdrop"></div>
+  <!-- KYC Modal -->
+  <div class="backdrop" id="backdrop"></div>
   <div class="kyc-modal" id="kycModal">
     <h3>🧾 KYC Verification</h3>
     <p>Please upload your ID card or document before proceeding.</p>
     <input type="file" />
     <button onclick="confirmKYC()">✔️ Submit KYC</button>
-  </div>  <script>
+  </div>
+
+  <script>
     function logout() {
       alert("You've been logged out.");
       location.href = 'index.html';
@@ -77,5 +85,6 @@
 
       doc.save("withdrawal_receipt.pdf");
     }
-  </script></body>
+  </script>
+</body>
 </html>
