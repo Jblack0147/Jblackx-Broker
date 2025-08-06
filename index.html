@@ -3,43 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jblackx Broker – Invest with Confidence</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Jblackx Broker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>💼 Jblackx Broker</h1>
-    <nav>
-      <a href="login.html">Login</a>
-      <a href="signup.html">Create Account</a>
-      <a href="dashboard.html">Dashboard</a>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <h2>🚀 Multiply Your Capital</h2>
-    <p>Earn 200% weekly ROI. Fully automated. Withdraw anytime.</p>
-    <a href="invest.html" class="cta-button">Start Investing</a>
-  </section>
+  <!-- 🔷 Top Navbar -->
+  <nav class="top-nav">
+    <div class="logo">Jblackx Broker</div>
+    <ul class="nav-links">
+      <li><a href="#">Why Us</a></li>
+      <li><a href="#">Investing</a></li>
+      <li><a href="#">Tools</a></li>
+      <li><a href="#">Research</a></li>
+      <li><a href="#">Retirement</a></li>
+      <li><a href="#">Pricing</a></li>
+    </ul>
+  </nav>
 
-  <section class="btc-price-widget">
-    <h3>📊 Live Crypto Price</h3>
-    <p>BTC: <span id="btc-price">Loading...</span></p>
-    <p>USDT: <span id="usdt-price">Loading...</span></p>
-  </section>
+  <!-- 🟩 Sidebar + Main Content Layout -->
+  <div class="container">
+    <aside class="sidebar">
+      <h3>Start Here</h3>
+      <ul>
+        <li>📘 New to Investing</li>
+        <li>📊 Experienced Investors</li>
+        <li>🧠 Active Traders</li>
+      </ul>
+    </aside>
 
-  <section class="testimonials">
-    <h3>✅ Trusted by 5,000+ Investors</h3>
-    <p>“I deposited $5000 and withdrew $15,000 in a week.” – Mike S.</p>
-    <p>“Best broker platform ever.” – Cynthia D.</p>
-    <p>“Real-time returns, instant withdrawals.” – Anonymous</p>
-  </section>
+    <main class="main-content">
+      <section class="ratings">
+        <h2>🏆 Rated 5 Stars by Barron’s</h2>
+        <p>SmartMoney Broker of the Year 2010</p>
+      </section>
 
-  <footer>
-    <p>&copy; 2025 Jblackx Broker. All rights reserved.</p>
-  </footer>
+      <section class="market-ticker">
+        <h3>📈 Market Overview</h3>
+        <div class="ticker">
+          <span>DOW: <span class="red">▼ 178.46</span></span>
+          <span>NASDAQ: <span class="red">▼ 77.53</span></span>
+          <span>S&P 500: <span class="red">▼ 27.50</span></span>
+        </div>
+      </section>
 
-  <script src="js/script.js"></script>
+      <section class="mobile-app">
+        <h3>📱 Mobile PRO for Android</h3>
+        <p>Get the power of the full platform on your device.</p>
+        <button>Download App</button>
+      </section>
+    </main>
+  </div>
+
 </body>
 </html>

